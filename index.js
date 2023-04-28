@@ -73,7 +73,7 @@ class Projectile{
         c.closePath()
     }
     update(){
-        this,draw()
+        this.draw()
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
 
@@ -82,6 +82,16 @@ class Projectile{
 
 
 const player = new Player()
+const projectiles = [new Projectile({
+    position:{
+        x: 300,
+        y: 300
+    },
+    velocity:{
+        x:0,
+        y:0
+    }
+})]
 const keys = {
     a: {
         pressed: false
@@ -101,6 +111,9 @@ function animate(){
     c.fillStyle = 'black'
     c.fillRect(0,0, canvas.width, canvas.height)
     player.update()
+    projectiles.forEach(projectile =>{
+        projectile.update()
+    })
 
     //Player movement speed
     const speed = 7
