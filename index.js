@@ -82,16 +82,7 @@ class Projectile{
 
 
 const player = new Player()
-const projectiles = [new Projectile({
-    position:{
-        x: 300,
-        y: 300
-    },
-    velocity:{
-        x:0,
-        y:0
-    }
-})]
+const projectiles = []
 const keys = {
     a: {
         pressed: false
@@ -135,16 +126,27 @@ animate()
 addEventListener('keydown', ({key})=>{
     switch(key){
         case 'a': 
-            console.log('left')
+            // console.log('left')
             keys.a.pressed = true
             break
             case 'd': 
-            console.log('right')
+            // console.log('right')
             keys.d.pressed = true
             break
             case ' ': 
-            console.log('space')
-            keys.space.pressed = true
+            // console.log('space')
+            projectiles.push(new Projectile({
+                position:{
+                    x: player.position.x + player.width / 2,
+                    y: player.position.y
+                },
+                velocity:{
+                    x:0,
+                    y:-10
+                }
+            }))
+
+            console.log(projectiles)
             break
     }
 })
