@@ -159,15 +159,17 @@ class Grid {
   update() {
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y
+    this.velocity.y = 0
 
     if(this.position.x + this.width >= canvas.width || this.position.x <= 0){
       this.velocity.x = -this.velocity.x
+      this.velocity.y = 50
     }
   }
 }
 const player = new Player();
 const projectiles = [];
-const grids = [new Grid()];
+const grids = [];
 
 const keys = {
   a: {
@@ -180,6 +182,11 @@ const keys = {
     pressed: false,
   },
 };
+
+
+let frames = 0
+let randomInterval = (Math.floor(Math.random() * 500) + 500)
+console.log(randomInterval)
 
 function animate() {
   requestAnimationFrame(animate);
@@ -221,6 +228,15 @@ function animate() {
     player.velocity.x = 0;
     player.rotation = 0;
   }
+  // spawning enemies
+ console.log(frames)
+  if (frames %  randomInterval === 0){
+    grids.push(new Grid())
+    randomInterval = (Math.floor(Math.random() * 500) + 500)
+    console.log(randomInterval)
+  }
+    
+  frames++
 }
 animate();
 
