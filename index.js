@@ -153,7 +153,7 @@ class Grid {
         this.invaders.push(new Invader({ position: { x: x * 50, y: y * 40 } }));
       }
     }
-    console.log(this.invaders);
+   console.log(this.invaders);
   }
 
   update() {
@@ -207,8 +207,18 @@ function animate() {
 
   grids.forEach((grid) => {
     grid.update();
-    grid.invaders.forEach((invader) => {
+    grid.invaders.forEach((invader, i) => {
       invader.update({velocity: grid.velocity});
+
+      projectiles.forEach((projectile, j) =>{
+        if(projectile.position.y - projectile.radius <= invader.position.y + invader.height){
+
+          setTimeout(()=>{
+            grid.invaders.splice(i, 1)
+            projectiles.splice(j, 1)
+          }, 0)
+        }
+      })
     });
   });
 
@@ -229,10 +239,11 @@ function animate() {
     player.rotation = 0;
   }
   // spawning enemies
- console.log(frames)
+//  console.log(frames)
   if (frames %  randomInterval === 0){
     grids.push(new Grid())
     randomInterval = (Math.floor(Math.random() * 500) + 500)
+    frames = 0
     console.log(randomInterval)
   }
     
