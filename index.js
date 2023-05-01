@@ -123,11 +123,11 @@ class Invader {
     );
   }
 
-  update() {
+  update({velocity}) {
     if (this.image) {
       this.draw();
-      this.position.x += this.velocity.x;
-      this.position.y += this.velocity.y;
+      this.position.x += velocity.x;
+      this.position.y += velocity.y;
     }
   }
 }
@@ -139,13 +139,14 @@ class Grid {
       y: 0,
     };
     this.velocity = {
-      x: 0,
+      x: 3,
       y: 0,
     };
     this.invaders = [];
-    const columns = Math.floor(Math.random() * 10 + 5);
 
+    const columns = Math.floor(Math.random() * 10 + 5);
     const rows = Math.floor(Math.random() * 5 + 2);
+    this.width = columns *50 
 
     for (let x = 0; x < columns; x++) {
       for (let y = 0; y < rows; y++) {
@@ -155,7 +156,14 @@ class Grid {
     console.log(this.invaders);
   }
 
-  update() {}
+  update() {
+    this.position.x += this.velocity.x
+    this.position.y += this.velocity.y
+
+    if(this.position.x + this.width >= canvas.width || this.position.x <= 0){
+      this.velocity.x = -this.velocity.x
+    }
+  }
 }
 const player = new Player();
 const projectiles = [];
@@ -193,7 +201,7 @@ function animate() {
   grids.forEach((grid) => {
     grid.update();
     grid.invaders.forEach((invader) => {
-      invader.update();
+      invader.update({velocity: grid.velocity});
     });
   });
 
