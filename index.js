@@ -211,7 +211,7 @@ function animate() {
       invader.update({velocity: grid.velocity});
 
       projectiles.forEach((projectile, j) =>{
-        if(projectile.position.y - projectile.radius <= invader.position.y + invader.height){
+        if(projectile.position.y - projectile.radius <= invader.position.y + invader.height && projectile.position.x + projectile.radius >= invader.position.x && projectile.position.x - projectile.radius <= invader.position.x ){
 
           setTimeout(()=>{
             grid.invaders.splice(i, 1)
