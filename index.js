@@ -150,7 +150,8 @@ class Invader {
       this.position.x += velocity.x;
       this.position.y += velocity.y;
     }
-    shoot(InvaderProjectiles){
+  }
+    shoot(InvaderProjectiles) {
 
       InvaderProjectile.push(new InvaderProjectile({
         position: {
@@ -165,7 +166,7 @@ class Invader {
       }))
     }
   }
-}
+
 
 class Grid {
   constructor() {
