@@ -84,6 +84,27 @@ class Projectile {
   }
 }
 
+class InvaderProjectile {
+  constructor({ position, velocity }) {
+    this.position = position;
+    this.velocity = velocity;
+    
+    this.width = 3
+    this.height = 10
+  }
+
+  draw() {
+    c.fillStyle = 'white'
+    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+
+  }
+  update() {
+    this.draw();
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
+  }
+}
+
 class Invader {
   constructor({ position }) {
     this.velocity = {
@@ -129,6 +150,20 @@ class Invader {
       this.position.x += velocity.x;
       this.position.y += velocity.y;
     }
+    shoot(InvaderProjectiles){
+
+      InvaderProjectile.push(new InvaderProjectile({
+        position: {
+          x: this.position.x + this.width / 2, 
+          y: this.position.y + this.height
+        },
+        velocity:{
+          x: 0,
+          y: 5
+
+        }
+      }))
+    }
   }
 }
 
@@ -170,6 +205,7 @@ class Grid {
 const player = new Player();
 const projectiles = [];
 const grids = [];
+const invaderProjectiles = []
 
 const keys = {
   a: {
@@ -186,7 +222,8 @@ const keys = {
 
 let frames = 0
 let randomInterval = (Math.floor(Math.random() * 500) + 500)
-console.log(randomInterval)
+
+// console.log(randomInterval)
 
 function animate() {
   requestAnimationFrame(animate);
