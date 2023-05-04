@@ -235,23 +235,37 @@ function animate() {
   c.fillRect(0, 0, canvas.width, canvas.height);
 
   player.update()
-  invaderProjectiles.forEach(invaderProjectile =>{
+  invaderProjectiles.forEach((invaderProjectile, index) =>{
+if(invaderProjectile.position.y +invaderProjectile.height >= canvas.height){
+  setTimeout(() => {
+    invaderProjectiles.splice(index, 1);
+  },0) 
+
+} else 
+
     invaderProjectile.update()
+
+    if(invaderProjectile.position.y + invaderProjectile.height >= player.position.y && invaderProjectile.position.x + invaderProjectile.width >= player.position.x && invaderProjectile.position.x <= player.position.x + player.width){
+      console.log('Loser!')
+    }
   })
+
+  // console.log(invaderProjectiles)
+
   projectiles.forEach((projectile, index) => {
     if (projectile.position.y + projectile.radius <= 0) {
-      (setTimeout) => {
-        projectiles.splice;
-      };
+      setTimeout(() => {
       projectiles.splice(index, 1);
-    } else {
+    },0) 
+  }else {
       projectile.update();
     }
   });
 
   grids.forEach((grid, gridIndex) => {
     grid.update();
-     // spawn projectiles
+     
+    // spawn projectiles
 
      if(frames % 100 === 0 && grid.invaders.length > 0){
       grid.invaders[Math.floor(Math.random() * grid.invaders.length)].shoot(invaderProjectiles)
