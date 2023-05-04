@@ -260,6 +260,7 @@ function animate() {
   particles.forEach(particle =>{
     particle.update()
   })
+
   invaderProjectiles.forEach((invaderProjectile, index) =>{
 if(invaderProjectile.position.y +invaderProjectile.height >= canvas.height){
   setTimeout(() => {
@@ -298,10 +299,24 @@ if(invaderProjectile.position.y +invaderProjectile.height >= canvas.height){
     grid.invaders.forEach((invader, i) => {
       invader.update({velocity: grid.velocity});
 
+      //projectiles hit enemy
       projectiles.forEach((projectile, j) =>{
-        if(projectile.position.y - projectile.radius <= invader.position.y + invader.height && projectile.position.x + projectile.radius >= invader.position.x && projectile.position.x - projectile.radius <= invader.position.x + invader.width &&  projectile.position.y + projectile.radius >= invader.position.y ){
-
-          setTimeout(()=>{
+        if(projectile.position.y - projectile.radius <= invader.position.y + invader.height && projectile.position.x + projectile.radius >= invader.position.x && projectile.position.x - projectile.radius <= invader.position.x + invader.width &&  projectile.position.y + projectile.radius >= invader.position.y )
+        {
+          particles.push(new Particle({
+            position:{
+              x: invader.position.x + invader.width / 2,
+              y: invader.position.y + invader.height / 2
+            },
+            velocity:{
+              x: 2,
+              y: 2
+            },
+            radius: 10,
+            color: 'yellow'
+          }))
+         
+          setTimeout(()=> {
             const invaderFound = grid.invaders.find(invader2 => invader2 === invader
             ) 
             const projectileFound = projectiles.find(projectile2 => projectile2 === projectile)
@@ -313,13 +328,14 @@ if(invaderProjectile.position.y +invaderProjectile.height >= canvas.height){
 
             if(grid.invaders.length > 0){
               const firstInvader = grid.invaders[0]
-              const lasttInvader = grid.invaders[grid.invaders.length - 1]
-            }
+              const lastInvader = grid.invaders[grid.invaders.length - 1]
+            
 
-            grid.width = lasttInvader.position.x - firstInvader.position.x + lasttInvader.width 
-            grid.postion.x = firstInvader.position.x
+            grid.width = lastInvader.position.x - firstInvader.position.x + lastInvader.width
+            grid.position.x = firstInvader.position.x
             }else{
               grids.splice(gridIndex, 1)
+            }
             }
           }, 0)
         }
