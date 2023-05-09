@@ -260,7 +260,7 @@ for(let i =0; i < 100; i++){
     },
     velocity:{
       x: 0,
-      y: 1
+      y: 0.3
     },
     radius: Math.random() * 2,
     color: 'white',
@@ -299,6 +299,11 @@ function animate() {
 
   player.update()
   particles.forEach((particle, i) =>{
+
+    if (particle.position.y - particle.radius >= canvas.height){
+      particle.position.x = Math.random() * canvas.width
+      particle.position.y = -particle.radius
+    }
     if (particle.opacity <=0){
       setTimeout(()=>{
         particles.splice(i,1)
