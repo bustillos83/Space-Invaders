@@ -1,6 +1,9 @@
+const scoreEl = document.querySelector('#scoreEl')
 const canvas = document.querySelector("canvas");
 // console.log(canvas)
 const c = canvas.getContext("2d");
+
+console.log(scoreEl)
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
@@ -218,7 +221,7 @@ class Grid {
         this.invaders.push(new Invader({ position: { x: x * 50, y: y * 40 } }));
       }
     }
-   console.log(this.invaders);
+  //  console.log(this.invaders);
   }
 
   update() {
@@ -257,6 +260,8 @@ let game = {
   over: false,
   active: true
 }
+
+let score = 0
 
 for(let i =0; i < 100; i++){
   particles.push(new Particle({
@@ -319,7 +324,7 @@ function animate() {
     particle.update()
     }
   })
-console.log(particles)
+// console.log(particles)
   invaderProjectiles.forEach((invaderProjectile, index) =>{
 if(invaderProjectile.position.y +invaderProjectile.height >= canvas.height){
   setTimeout(() => {
@@ -343,7 +348,7 @@ if(invaderProjectile.position.y +invaderProjectile.height >= canvas.height){
        game.active = false
       },2000) 
       
-      console.log('Loser!')
+      // console.log('Loser!')
       createParticles({
         object: player,
         color: "gray",
@@ -392,6 +397,9 @@ if(invaderProjectile.position.y +invaderProjectile.height >= canvas.height){
 
             
             if (invaderFound && projectileFound) {
+              score += 100
+              console.log(score)
+              scoreEl.innerHTML = score
               createParticles({
                 object: invader,
                 fades: true
