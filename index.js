@@ -5,8 +5,8 @@ const c = canvas.getContext("2d");
 
 console.log(scoreEl)
 
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+canvas.width = 1024;
+canvas.height = 576;
 
 class Player {
   constructor() {
@@ -21,7 +21,7 @@ class Player {
     const image = new Image();
     image.src = "./img/spaceship.png";
     image.onload = () => {
-      const scale = 0.15;
+      const scale = 0.08;
       this.image = image;
       this.width = image.width * scale;
       this.height = image.height * scale;
@@ -147,7 +147,7 @@ class Invader {
     const image = new Image();
     image.src = "./img/invader2.png";
     image.onload = () => {
-      const scale = 1;
+      const scale = 0.7;
       this.image = image;
       this.width = image.width * scale;
       this.height = image.height * scale;
@@ -214,11 +214,11 @@ class Grid {
 
     const columns = Math.floor(Math.random() * 10 + 5);
     const rows = Math.floor(Math.random() * 5 + 2);
-    this.width = columns *50 
+    this.width = columns *35 
 
     for (let x = 0; x < columns; x++) {
       for (let y = 0; y < rows; y++) {
-        this.invaders.push(new Invader({ position: { x: x * 50, y: y * 40 } }));
+        this.invaders.push(new Invader({ position: { x: x * 37, y: y * 40 } }));
       }
     }
   //  console.log(this.invaders);
